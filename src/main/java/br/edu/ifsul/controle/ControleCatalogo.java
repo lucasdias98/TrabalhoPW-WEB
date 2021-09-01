@@ -1,8 +1,9 @@
 package br.edu.ifsul.controle;
 
+import br.edu.ifsul.dao.CatalogoDAO;
 import br.edu.ifsul.dao.FormatoDAO;
 import br.edu.ifsul.dao.IdiomaDAO;
-import br.edu.ifsul.dao.LivroDAO;
+import br.edu.ifsul.modelo.Catalogo;
 import br.edu.ifsul.modelo.Formato;
 import br.edu.ifsul.modelo.Idioma;
 import br.edu.ifsul.modelo.Livro;
@@ -18,26 +19,50 @@ import javax.inject.Named;
  */
 @Named(value = "controleLivro")
 @ViewScoped
-public class ControleLivro implements Serializable{
+public class ControleCatalogo implements Serializable{
     
     @EJB
-    private LivroDAO<Livro> dao;
-    private Livro objeto;
+    private CatalogoDAO<Catalogo> dao;
+    private Catalogo objeto;
+    protected Livro livro;
+    protected Boolean novoLivro;
     @EJB
-    private IdiomaDAO<Idioma> daoIdioma;
+    protected IdiomaDAO<Idioma> daoIdioma;
     @EJB
-    private FormatoDAO<Formato> daoFormato;
-    
-    public ControleLivro(){
+    protected FormatoDAO<Formato> daoFormato;
+
+    public ControleCatalogo(){
         
     }
     
+    public void novoLivro(){
+        novoLivro = true;
+        livro = new Livro();
+    }
+    
+    public void alterarLivro(int index){
+        livro = objeto.getLivros().get(index);
+        novoLivro = false;
+    }
+    
+    public void salvarLivro(){
+        if (novoLivro){
+            objeto.adicionarLivro(livro);
+        }
+        Util.mensagemInformacao("Livro adicionado ou atualizado com sucesso");
+    }
+    
+    public void removerLivro(int index){
+        objeto.removerLivro(index);
+        Util.mensagemInformacao("Livro removido com sucesso!");
+    }
+    
     public String listar(){
-        return "/privado/livro/listar?faces-redirect=true";
+        return "/privado/catalogo/listar?faces-redirect=true";
     }
     
     public void novo(){
-        setObjeto(new Livro());
+        setObjeto(new Catalogo());
     }
     
     public void alterar(Object id) {
@@ -60,7 +85,7 @@ public class ControleLivro implements Serializable{
     
     public void salvar(){
         try {
-            if (objeto.getISBN() == null){
+            if (objeto.getId() == null){
                 dao.persist(objeto);
             } else {
                 dao.merge(objeto);
@@ -71,20 +96,36 @@ public class ControleLivro implements Serializable{
         }
     }
 
-    public LivroDAO<Livro> getDao() {
+    public CatalogoDAO<Catalogo> getDao() {
         return dao;
     }
 
-    public void setDao(LivroDAO<Livro> dao) {
+    public void setDao(CatalogoDAO<Catalogo> dao) {
         this.dao = dao;
     }
 
-    public Livro getObjeto() {
+    public Catalogo getObjeto() {
         return objeto;
     }
 
-    public void setObjeto(Livro objeto) {
+    public void setObjeto(Catalogo objeto) {
         this.objeto = objeto;
+    }
+
+    public Livro getLivro() {
+        return livro;
+    }
+
+    public void setLivro(Livro livro) {
+        this.livro = livro;
+    }
+
+    public Boolean getNovoLivro() {
+        return novoLivro;
+    }
+
+    public void setNovoLivro(Boolean novoLivro) {
+        this.novoLivro = novoLivro;
     }
 
     public IdiomaDAO<Idioma> getDaoIdioma() {
@@ -98,7 +139,7 @@ public class ControleLivro implements Serializable{
     public FormatoDAO<Formato> getDaoFormato() {
         return daoFormato;
     }
-    
+
     public void setDaoFormato(FormatoDAO<Formato> daoFormato) {
         this.daoFormato = daoFormato;
     }

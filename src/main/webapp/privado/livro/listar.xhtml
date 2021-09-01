@@ -21,7 +21,7 @@
                 <p:dataTable value="#{controleLivro.dao.listaObjetos}" var="obj"
                              id="listagem">
                     <p:column headerText="ISBN">
-                        <p:outputLabel value="#{obj.isbn}"/>
+                        <p:outputLabel value="#{obj.ISBN}"/>
                     </p:column>
                     <p:column headerText="Titulo">
                         <p:outputLabel value="#{obj.titulo}"/>
@@ -41,13 +41,13 @@
                     <p:column headerText="Ações">
                         <div align="center">
 
-                            <p:commandButton actionListener="#{controleLivro.alterar(obj.isbn)}"
+                            <p:commandButton actionListener="#{controleLivro.alterar(obj.ISBN)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
                                              oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controleLivro.excluir(obj.isbn)}"
+                            <p:commandButton actionListener="#{controleLivro.excluir(obj.ISBN)}"
                                              icon="pi pi-trash"
                                              title="Excluir"
                                              update="formListagem"
@@ -65,31 +65,31 @@
                     <div align="center">
                         <p:panelGrid columns="2">
                             <p:outputLabel value="ISBN"/>
-                            <p:inputText value="#{controleLivro.objeto.isbn}"
+                            <p:inputText value="#{controleLivro.objeto.ISBN}"
                                          size="5" readonly="true"/>
                             <p:outputLabel value="Titulo" for="txtTitulo"/>
                             <p:inputText id="txtTitulo"
                                          value="#{controleLivro.objeto.titulo}"
                                          size="50" maxlength="50"
-                                         placeholder="Obrgatório"/>
+                                         placeholder="Obrigatório"/>
                             <p:outputLabel value="Resumo" for="txtResumo"/>
                             <p:inputText id="txtResumo"
                                          value="#{controleLivro.objeto.resumo}"
                                          size="200" maxlength="200"
-                                         placeholder="Obrgatório"/>
+                                         placeholder="Obrigatório"/>
                             <p:outputLabel value="Editora" for="txtEditora"/>
                             <p:inputText id="txtEditora"
                                          value="#{controleLivro.objeto.editora}"
                                          size="50" maxlength="50"
-                                         placeholder="Obrgatório"/>
+                                         placeholder="Obrigatório"/>
 
-                            <p:outputLabel value="CodigoBarras" for="txtCodigoBarras"/>
+                            <p:outputLabel value="Código de Barras" for="txtCodigoBarras"/>
                             <p:inputText id="txtCodigoBarras"
                                          value="#{controleLivro.objeto.codigoBarras}"
                                          size="50" maxlength="50"
                                          placeholder="Obrgatório"/>
-                            <p:outputLabel value="numeroPaginas" for="txtNumeroPaginas"/>
-                            <p:inputText id="txtnumeroPaginas"
+                            <p:outputLabel value="Número de Páginas" for="txtNumeroPaginas"/>
+                            <p:inputText id="txtNumeroPaginas"
                                          value="#{controleLivro.objeto.numeroPaginas}"
                                          placeholder="Obrgatório"/>
                             <p:outputLabel value="Ativo" for="txtAtivo"/>
@@ -102,16 +102,16 @@
                                          placeholder="Obrgatório"/>
 
                             <p:outputLabel value="Data de publicação" for="txtDataPublicacao"/>
-                            <p:calendar id="txtDataPublicacao" value="#{controleLivro.objeto.dataPublicacao}"
+                            <p:calendar id="txtDataPublicacao" value="#{controleLivro.objeto.dataPuclicacao}"
                                         mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
                                 <f:converter converterId="converterCalendar"/>
                             </p:calendar> 
                             
-                            <p:outputLabel value="Data de cadastro" for="txtDataCadastro"/>
-                            <p:inputText value="#{controleLivro.objeto.dataCadastro}"
-                                         size="11"  id="txtDataCadastro" readonly="true">
+                             <p:outputLabel value="Data de cadastro" for="txtDataCadastro"/>
+                            <p:calendar id="txtDataCadastro" value="#{controleLivro.objeto.dataCadastro}"
+                                        mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
                                 <f:converter converterId="converterCalendar"/>
-                            </p:inputText>   
+                            </p:calendar> 
 
                             <p:outputLabel value="Idioma" for="selectIdioma"/>
                             <p:selectOneMenu value="#{controleLivro.objeto.idioma}"
@@ -134,7 +134,6 @@
                                 <f:selectItems value="#{controleLivro.daoFormato.listaTodos}"
                                                var="form" itemLabel="#{form.nome}"/>
                             </p:selectOneMenu>
-
 
                         </p:panelGrid>
                     </div>

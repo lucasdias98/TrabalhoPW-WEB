@@ -12,7 +12,7 @@
             <h:form id="formListagem" prependId="false">
                 <p:growl/>
                 <p:commandButton value="Novo" 
-                                 actionListener="#{controleLivraria.novo()}"
+                                 actionListener="#{controleCatalogo.novo()}"
                                  icon="pi pi-plus"
                                  update="formEdicao"
                                  process="@this"
@@ -20,19 +20,19 @@
                 <div align="center">
                     <p:panelGrid columns="11">
                         <p:outputLabel value="Ordem: "/>
-                        <p:selectOneMenu value="#{controleLivraria.dao.ordemAtual}" id="selectOrdem"
-                                         converter="#{controleLivraria.dao.converterOrdem}">
-                            <f:selectItems value="#{controleLivraria.dao.listaOrdem}"
+                        <p:selectOneMenu value="#{controleCatalogo.dao.ordemAtual}" id="selectOrdem"
+                                         converter="#{controleCatalogo.dao.converterOrdem}">
+                            <f:selectItems value="#{controleCatalogo.dao.listaOrdem}"
                                          var="ord" itemValue="#{ord.atributo}"/>
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
                         <p:outputLabel value="Filtro: "/>
-                        <p:inputText value="#{controleLivraria.dao.filtro}">
+                        <p:inputText value="#{controleCatalogo.dao.filtro}">
                             <p:ajax update="listagem" event="blur"/>
                         </p:inputText>
                         <p:commandButton value="Filtrar" update="listagem"/>
                         <p:outputLabel value="Máximo de Objetos: "/>
-                        <p:selectOneMenu value="#{controleLivraria.dao.maximoObjetos}">
+                        <p:selectOneMenu value="#{controleCatalogo.dao.maximoObjetos}">
                             <f:selectItem itemLabel="5" itemValue="5"/>
                             <f:selectItem itemLabel="10" itemValue="10"/>
                             <f:selectItem itemLabel="20" itemValue="20"/>
@@ -40,28 +40,28 @@
                             <f:selectItem itemLabel="100" itemValue="100"/>
                             <p:ajax update="listagem"/>
                         </p:selectOneMenu>
-                        <p:commandButton action="#{controleLivraria.dao.primeiro()}"
+                        <p:commandButton action="#{controleCatalogo.dao.primeiro()}"
                                          title="Primeiro"
                                          icon="pi pi-step-backward"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleLivraria.dao.anterior()}"
+                        <p:commandButton action="#{controleCatalogo.dao.anterior()}"
                                          title="Anterior"
                                          icon="pi pi-chevron-left"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleLivraria.dao.proximo()}"
+                        <p:commandButton action="#{controleCatalogo.dao.proximo()}"
                                          title="Proximo"
                                          icon="pi pi-chevron-right"
                                          update="listagem"/>
-                        <p:commandButton action="#{controleLivraria.dao.ultimo()}"
+                        <p:commandButton action="#{controleCatalogo.dao.ultimo()}"
                                          title="Ultimo"
                                          icon="pi pi-step-forward"
                                          update="listagem"/>
                     </p:panelGrid>
                 </div>
-                <p:dataTable value="#{controleLivraria.dao.listaObjetos}" var="obj"
+                <p:dataTable value="#{controleCatalogo.dao.listaObjetos}" var="obj"
                              id="listagem">
                     <f:facet name="footer">
-                        <p:outputLabel value="#{controleLivraria.dao.mensagemNavegacao}"/>
+                        <p:outputLabel value="#{controleCatalogo.dao.mensagemNavegacao}"/>
                     </f:facet>
                     <p:column headerText="ID">
                         <p:outputLabel value="#{obj.id}"/>
@@ -75,13 +75,13 @@
                     <p:column headerText="Ações">
                         <div align="center">
                             
-                            <p:commandButton actionListener="#{controleLivraria.alterar(obj.id)}"
+                            <p:commandButton actionListener="#{controleCatalogo.alterar(obj.id)}"
                                              icon="pi pi-pencil"
                                              title="Editar"
                                              update="formEdicao"
                                              process="@this"
                                              oncomplete="PF('dlg').show();"/>
-                            <p:commandButton actionListener="#{controleLivraria.excluir(obj.id)}"
+                            <p:commandButton actionListener="#{controleCatalogo.excluir(obj.id)}"
                                              icon="pi pi-trash"
                                              title="Excluir"
                                              update="formListagem"

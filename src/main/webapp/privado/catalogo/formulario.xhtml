@@ -1,0 +1,166 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <p:dialog header="Edição" widgetVar="dlg" resizable="false"
+              modal="modal" width="50%" height="100%">
+        <h:form id="formEdicao" prependId="false">
+            <p:growl id="growl"/>
+            <p:tabView id="tab">
+                <p:tab title="Dados Principais">
+                    <div align="center">
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="ID"/>
+                            <p:inputText value="#{controleCatalogo.objeto.id}"
+                                         size="5" readonly="true"/>
+                            <p:outputLabel value="Nome" for="txtNome"/>
+                            <p:inputText id="txtNome"
+                                         value="#{controleCatalogo.objeto.nome}"
+                                         size="50" maxlength="50"
+                                         placeholder="Obrgatório"/>
+                            <p:outputLabel value="Site" for="txtDescricao"/>
+                            <p:inputText id="txtDescricao"
+                                         value="#{controleCatalogo.objeto.descricao}"
+                                         size="100" maxlength="100"
+                                         placeholder="Obrgatório"/>
+                        </p:panelGrid>
+                    </div>                    
+                </p:tab>
+                <p:tab title="Catálogos">
+                    <p:dataTable value="#{controleCatalogo.objeto.livros}"
+                                 var="livro" rowIndexVar="idxLivro"
+                                 id="listaLivros">
+                        <f:facet name="header">
+                            <p:commandButton  value="Novo Livro"
+                                              actionListener="#{controleCatalogo.novoLivro()}"
+                                              update=":formLivro"
+                                              icon="pi pi-plus"
+                                              process="@this"
+                                              oncomplete="PF('dlgCatalogo').show();"/>                                              
+                        </f:facet>
+                        <p:column headerText="ID">
+                            <p:outputLabel value="#{livro.ISBN}"/>
+                        </p:column>
+                        <p:column headerText="Nome">
+                            <p:outputLabel value="#{livro.titulo}"/>
+                        </p:column>                        
+                        <p:column headerText="Descricao">
+                            <p:outputLabel value="#{livro.editora}"/>
+                        </p:column> 
+                        <p:column headerText="Número de Páginas">
+                            <p:outputLabel value="#{livro.numeroPaginas}"/>
+                        </p:column> 
+                        <p:column headerText="Valor">
+                            <p:outputLabel value="#{livro.valor}"/>
+                        </p:column> 
+                        <p:column headerText="Ações">
+                            <p:commandButton icon="pi pi-pencil"
+                                             actionListener="#{controleCatalogo.alterarLivro(idxLivro)}"
+                                             process="@this"
+                                             update=":formLivro  "
+                                             oncomplete="PF('dlgLivro').show();"/>
+                            <p:commandButton icon="pi pi-trash"
+                                             actionListener="#{controleCatalogo.removerLivro(idxLivro)}"
+                                             process="@this"
+                                             update="tab:listaLivro growl"
+                                             onclick="if (!confirm('Confirma a exclusão do Livro?'))
+                                                         return false"/>
+                        </p:column>
+                    </p:dataTable>
+                </p:tab> 
+            </p:tabView>
+            <p:panel>
+                <div alig="center">
+                    <p:commandButton value="Salvar" icon="pi pi-save"
+                                     actionListener="#{controleCatalogo.salvar()}"
+                                     update="formEdicao formListagem"
+                                     oncomplete="if(!args.validationFailed){PF('dlg').hide();}"/>
+                </div>
+            </p:panel>
+        </h:form>
+    </p:dialog>
+    <p:dialog header="Edição de Livro" widgetVar="dlgLivro" resizable="false"
+              modal="true">
+        <h:form id="formLivro">
+            <p:growl/>
+            <p:panelGrid columns="2">
+                <f:facet name="footer">
+                    <div align="center">
+                        <p:commandButton value="Salvar" icon="pi pi-save"
+                                         actionListener="#{controleCatalogo.salvarLivro()}"
+                                         update="tab:listaCatalogos growl @form"
+                                         process="@form"
+                                         oncomplete="if(!args.validationFailed){PF('dlgCatalogo').hide();}"/>
+                    </div>
+                </f:facet>
+                <p:outputLabel value="ISBN"/>
+                <p:inputText value="#{controleCatalogo.livro.ISBN}" readonly="true"/>
+                <p:outputLabel value="Titulo" for="txtTitulo"/>
+                <p:inputText value="#{controleCatalogo.livro.titulo}" id="txtTitulo"
+                             placeholder="Obrigatório" size="50" maxlength="50"/>
+                <p:outputLabel value="Resumo" for="txtResumo"/>
+                <p:inputMask id="txtResumo" value="#{controleCatalogo.livro.resumo}"
+                             placeholder="Obrigatório" size="200" maxlength="200"/>
+                <p:outputLabel value="Editora" for="txtEditora"/>
+                <p:inputMask id="txtEditora" value="#{controleCatalogo.livro.editora}"
+                             placeholder="Obrigatório" size="50" maxlength="50"/>
+                <p:outputLabel value="Codigo de Barras" for="txtCodigoBarras"/>
+                <p:inputMask id="txtCodigoBarras" value="#{controleCatalogo.livro.codigoBarras}"
+                             placeholder="Obrigatório" size="50" maxlength="50"/>
+                <p:outputLabel value="Número de Páginas" for="txtNumeroPaginas"/>
+                <p:inputMask id="txtNumeroPaginas" value="#{controleCatalogo.livro.codigoBarras}"
+                             placeholder="Obrigatório" size="50" maxlength="50"/>
+                <p:outputLabel value="Ativo" for="txtAtivo"/>
+                <p:inputMask id="txtAtivo" value="#{controleCatalogo.livro.ativo}"
+                             placeholder="Obrigatório"/>
+                <p:outputLabel value="Valor" for="txtValor"/>
+                <p:inputNumber id="txtValor" value="#{controleCatalogo.livro.valor}"
+                               thousandSeparator="" decimalSeparator="."
+                               decimalPlaces="2" size="10"/>
+                
+                <p:outputLabel value="Data de Publicação" for="txtDataPublicacao"/>
+                <p:calendar id="txtDataPublicacao"
+                            value="#{controleCatalogo.controleCatalogo.dataPuclicacao}"
+                            mask="true"
+                            pattern="dd/MM/yyyy" navigator="true"
+                            size="10">
+                    <f:converter converterId="converterCalendar"/>
+                </p:calendar> 
+                <p:outputLabel value="Data de Cadastro" for="txtDataCadastro"/>
+                <p:calendar id="txtDataCadastro"
+                            value="#{controleCatalogo.controleCatalogo.dataCadastro}"
+                            mask="true"
+                            pattern="dd/MM/yyyy" navigator="true"
+                            size="10">
+                    <f:converter converterId="converterCalendar"/>
+                </p:calendar> 
+                
+                <p:outputLabel value="Idioma" for="selectIdioma"/>
+                <p:selectOneMenu value="#{controleCatalogo.livro.idioma}"
+                                 id="selectIdioma"
+                                 filter="true" filterMatchMode="startsWith">
+                    <f:converter binding="#{converterIdioma}"/>
+                    <f:selectItem itemLabel="Selecione um registro"
+                                  noSelectionOption="true"/>
+                    <f:selectItems value="#{controleCatalogo.daoIdioma.listaTodos}"
+                                   var="idio" itemLabel="#{idio.nome}"/>
+                </p:selectOneMenu> 
+                
+                <p:outputLabel value="Formato" for="selectFormato"/>
+                <p:selectOneMenu value="#{controleCatalogo.livro.formato}"
+                                 id="selectFormato"
+                                 filter="true" filterMatchMode="startsWith">
+                    <f:converter binding="#{converterFormato}"/>
+                    <f:selectItem itemLabel="Selecione um registro"
+                                  noSelectionOption="true"/>
+                    <f:selectItems value="#{controleCatalogo.daoFormato.listaTodos}"
+                                   var="format" itemLabel="#{format.nome}"/>
+                </p:selectOneMenu> 
+                
+            </p:panelGrid>
+        </h:form>        
+    </p:dialog>
+</html>
+

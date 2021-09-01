@@ -1,19 +1,23 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.edu.ifsul.dao;
 
 import br.edu.ifsul.converters.ConverterOrdem;
-import br.edu.ifsul.modelo.Livraria;
+import br.edu.ifsul.modelo.Catalogo;
 import java.io.Serializable;
-import javax.ejb.Stateful;
 
 /**
  *
  * @author Lucas
  */
-@Stateful
-public class LivrariaDAO<TIPO> extends DAOGenerico<Livraria> implements Serializable {
-    public LivrariaDAO(){
+public class CatalogoDAO<TIPO> extends DAOGenerico<Catalogo> implements Serializable {
+    
+    public CatalogoDAO(){
         super();
-        classePersistente = Livraria.class;
+        classePersistente = Catalogo.class;
         //definição da lista de ordenações
         listaOrdem.add(new Ordem("id", "ID", "="));
         listaOrdem.add(new Ordem("nome", "Nome", "like"));
@@ -26,11 +30,11 @@ public class LivrariaDAO<TIPO> extends DAOGenerico<Livraria> implements Serializ
     }
     
     @Override
-    public Livraria localizar(Object id) throws Exception {
-        Livraria objeto = em.find(Livraria.class, id);
+    public Catalogo localizar(Object id) throws Exception {
+        Catalogo objeto = em.find(Catalogo.class, id);
         // Deve-se inicializar a coleção ou coleçoes do objeto para não
         // dar um erro de lazy inicialization exception
-        objeto.getCatalogos().size();        
+        objeto.getLivros().size();        
         return objeto;
     }
     

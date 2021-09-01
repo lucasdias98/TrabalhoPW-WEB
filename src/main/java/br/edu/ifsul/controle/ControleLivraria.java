@@ -1,6 +1,7 @@
 package br.edu.ifsul.controle;
 
 import br.edu.ifsul.dao.LivrariaDAO;
+import br.edu.ifsul.modelo.Catalogo;
 import br.edu.ifsul.modelo.Livraria;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
@@ -15,13 +16,37 @@ import javax.inject.Named;
 @Named(value = "controleLivraria")
 @ViewScoped
 public class ControleLivraria implements Serializable{
-    
+
     @EJB
     private LivrariaDAO<Livraria> dao;
     private Livraria objeto;
+    protected Catalogo catalogo;
+    protected Boolean novoCatalogo;
 
     public ControleLivraria(){
         
+    }
+    
+    public void novoCatalogo(){
+        novoCatalogo = true;
+        catalogo = new Catalogo();
+    }
+    
+    public void alterarCatalogo(int index){
+        catalogo = objeto.getCatalogos().get(index);
+        novoCatalogo = false;
+    }
+    
+    public void salvarCatalogo(){
+        if (novoCatalogo){
+            objeto.adicionarCatalogo(catalogo);
+        }
+        Util.mensagemInformacao("Catalogo adicionado ou atualizado com sucesso");
+    }
+    
+    public void removerCatalogo(int index){
+        objeto.removerCatalogo(index);
+        Util.mensagemInformacao("Catalogo removido com sucesso!");
     }
     
     public String listar(){
@@ -77,6 +102,22 @@ public class ControleLivraria implements Serializable{
 
     public void setObjeto(Livraria objeto) {
         this.objeto = objeto;
+    }
+
+    public Catalogo getCatalogo() {
+        return catalogo;
+    }
+
+    public void setCatalogo(Catalogo catalogo) {
+        this.catalogo = catalogo;
+    }
+
+    public Boolean getNovoCatalogo() {
+        return novoCatalogo;
+    }
+
+    public void setNovoCatalogo(Boolean novoCatalogo) {
+        this.novoCatalogo = novoCatalogo;
     }
     
 }

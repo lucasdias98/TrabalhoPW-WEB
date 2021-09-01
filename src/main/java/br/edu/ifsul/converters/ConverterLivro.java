@@ -1,6 +1,11 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package br.edu.ifsul.converters;
 
-import br.edu.ifsul.modelo.Formato;
+import br.edu.ifsul.modelo.Livro;
 import java.io.Serializable;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
@@ -14,9 +19,9 @@ import javax.persistence.PersistenceContext;
  *
  * @author Lucas
  */
-@Named(value = "converterFormato")
+@Named(value = "converterLivro")
 @RequestScoped
-public class ConverterFormato implements Serializable, Converter {
+public class ConverterLivro implements Serializable, Converter {
     
     @PersistenceContext(unitName = "TrabalhoPW-WEBPU")
     private EntityManager em;    
@@ -27,7 +32,7 @@ public class ConverterFormato implements Serializable, Converter {
         if (string == null || string.equals("Selecione um registro")){
             return null;
         }
-        return em.find(Formato.class, Integer.parseInt(string));
+        return em.find(Livro.class, Integer.parseInt(string));
     }
 
     // converte o objeto que vem do banco em uma string para tela
@@ -36,8 +41,8 @@ public class ConverterFormato implements Serializable, Converter {
         if (t == null){
             return null;
         }
-        Formato obj = (Formato) t;
-        return obj.getId().toString();
+        Livro obj = (Livro) t;
+        return obj.getISBN();
     }
     
 }

@@ -14,7 +14,7 @@ import javax.faces.convert.FacesConverter;
  */
 @FacesConverter(value = "converterCalendar")
 public class ConverterCalendar implements Serializable, Converter{
-    
+
     private SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
     
     @Override
@@ -36,5 +36,5 @@ public class ConverterCalendar implements Serializable, Converter{
         Calendar obj = (Calendar) arg2;
         return sdf.format(obj.getTime());
     }
-    
+
 }
