@@ -19,6 +19,15 @@
                 <p:submenu label="Cadastros">
                     <p:column>
                         <p:submenu label="Básicos">
+                            <p:menuitem action="#{controleAutor.listar()}"
+                                        value="Manutenção de Autores"
+                                        ajax="false"/>
+                            <p:menuitem action="#{controleLivro.listar()}"
+                                        value="Manutenção de Livros"
+                                        ajax="false"/>
+                            <p:menuitem action="#{controleCatalogo.listar()}"
+                                        value="Manutenção de Catálogos"
+                                        ajax="false"/>
                             <p:menuitem action="#{controleFormato.listar()}"
                                         value="Manutenção de Formatos"
                                         ajax="false"/>
@@ -28,13 +37,27 @@
                             <p:menuitem action="#{controleLivraria.listar()}"
                                         value="Manutenção de Livrarias"
                                         ajax="false"/>
-                            <p:menuitem action="#{controleAutor.listar()}"
-                                        value="Manutenção de Autores"
-                                        ajax="false"/>
-                            <p:menuitem action="#{controleLivro.listar()}"
-                                        value="Manutenção de Livros"
+                            <p:menuitem action="#{controleUsuario.listar()}"
+                                        value="Manutenção de Usuários"
                                         ajax="false"/>
                         </p:submenu>
+                    </p:column>
+                </p:submenu>
+                <p:submenu label="Usuário #{controleLogin.usuarioAutenticado != null ? 
+                                            controleLogin.usuarioAutenticado.nome : ''}">
+                    <p:column>
+                        <p:submenu label="Efetuar Login" 
+                                   rendered="#{controleLogin.usuarioAutenticado == null}">
+                            <p:menuitem action="#{controleLogin.paginaLogin()}"
+                                        value="Login" icon="pi pi-user"
+                                        ajax="false"/>
+                        </p:submenu> 
+                        <p:submenu label="Efetuar Logout" 
+                                   rendered="#{controleLogin.usuarioAutenticado != null}">
+                            <p:menuitem action="#{controleLogin.efetuarLogout()}"
+                                        value="Logout" icon="pi pi-power-off"
+                                        ajax="false"/>
+                        </p:submenu> 
                     </p:column>
                 </p:submenu>
             </p:megaMenu>

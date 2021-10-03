@@ -1,8 +1,12 @@
 package br.edu.ifsul.controle;
 
+import br.edu.ifsul.dao.AutorDAO;
+import br.edu.ifsul.dao.CatalogoDAO;
 import br.edu.ifsul.dao.FormatoDAO;
 import br.edu.ifsul.dao.IdiomaDAO;
 import br.edu.ifsul.dao.LivroDAO;
+import br.edu.ifsul.modelo.Autor;
+import br.edu.ifsul.modelo.Catalogo;
 import br.edu.ifsul.modelo.Formato;
 import br.edu.ifsul.modelo.Idioma;
 import br.edu.ifsul.modelo.Livro;
@@ -27,9 +31,32 @@ public class ControleLivro implements Serializable{
     private IdiomaDAO<Idioma> daoIdioma;
     @EJB
     private FormatoDAO<Formato> daoFormato;
+    @EJB
+    protected CatalogoDAO<Catalogo> daoCatalogo;
+    @EJB
+    protected AutorDAO<Autor> daoAutor;
+    protected Autor autor;
     
     public ControleLivro(){
         
+    }
+    
+    public void removerAutor(Autor obj) {
+        objeto.getAutores().remove(obj);
+        Util.mensagemInformacao("Autor removido com sucesso!");
+    }
+    
+    public void adicionarAutor() {
+        if (!objeto.getAutores().contains(autor)) {
+            if (autor != null) {
+                objeto.getAutores().add(autor);
+                Util.mensagemInformacao("Autor adicionado com sucesso!");
+            } else {
+                Util.mensagemErro("Selecione o Autor");
+            }
+        } else {
+            Util.mensagemErro("O Livro já possui este autor");
+        }
     }
     
     public String listar(){
@@ -101,6 +128,30 @@ public class ControleLivro implements Serializable{
     
     public void setDaoFormato(FormatoDAO<Formato> daoFormato) {
         this.daoFormato = daoFormato;
+    }
+
+    public CatalogoDAO<Catalogo> getDaoCatalogo() {
+        return daoCatalogo;
+    }
+
+    public void setDaoCatalogo(CatalogoDAO<Catalogo> daoCatalogo) {
+        this.daoCatalogo = daoCatalogo;
+    }
+
+    public AutorDAO<Autor> getDaoAutor() {
+        return daoAutor;
+    }
+
+    public void setDaoAutor(AutorDAO<Autor> daoAutor) {
+        this.daoAutor = daoAutor;
+    }
+
+    public Autor getAutor() {
+        return autor;
+    }
+    
+    public void setAutor(Autor autor) {
+        this.autor = autor;
     }
     
 }

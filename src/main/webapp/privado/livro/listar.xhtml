@@ -51,105 +51,14 @@
                                              icon="pi pi-trash"
                                              title="Excluir"
                                              update="formListagem"
-                                             onclick="if (!confirm('Confirmar excluisão?'))
+                                             onclick="if (!confirm('Confirmar exclusão?'))
                                                          return false"/>
 
                         </div>
                     </p:column>
                 </p:dataTable>
             </h:form>
-            <p:dialog header="Edição" widgetVar="dlg" resizable="false"
-                      modal="modal" width="50%" height="100%">
-                <h:form id="formEdicao" prependId="false">
-                    <p:growl id="growl"/>
-                    <div align="center">
-                        <p:panelGrid columns="2">
-                            <p:outputLabel value="ISBN"/>
-                            <p:inputText value="#{controleLivro.objeto.ISBN}"
-                                         size="5" readonly="true"/>
-                            <p:outputLabel value="Titulo" for="txtTitulo"/>
-                            <p:inputText id="txtTitulo"
-                                         value="#{controleLivro.objeto.titulo}"
-                                         size="50" maxlength="50"
-                                         placeholder="Obrigatório"/>
-                            <p:outputLabel value="Resumo" for="txtResumo"/>
-                            <p:inputText id="txtResumo"
-                                         value="#{controleLivro.objeto.resumo}"
-                                         size="200" maxlength="200"
-                                         placeholder="Obrigatório"/>
-                            <p:outputLabel value="Editora" for="txtEditora"/>
-                            <p:inputText id="txtEditora"
-                                         value="#{controleLivro.objeto.editora}"
-                                         size="50" maxlength="50"
-                                         placeholder="Obrigatório"/>
-
-                            <p:outputLabel value="Código de Barras" for="txtCodigoBarras"/>
-                            <p:inputText id="txtCodigoBarras"
-                                         value="#{controleLivro.objeto.codigoBarras}"
-                                         size="50" maxlength="50"
-                                         placeholder="Obrgatório"/>
-                            <p:outputLabel value="Número de Páginas" for="txtNumeroPaginas"/>
-                            <p:inputText id="txtNumeroPaginas"
-                                         value="#{controleLivro.objeto.numeroPaginas}"
-                                         placeholder="Obrgatório"/>
-                            <p:outputLabel value="Ativo" for="txtAtivo"/>
-                            <p:inputText id="txtAtivo"
-                                         value="#{controleLivro.objeto.ativo}"
-                                         placeholder="Obrgatório"/>
-                            <p:outputLabel value="Valor" for="txtValor"/>
-                            <p:inputText id="txtValor"
-                                         value="#{controleLivro.objeto.valor}"
-                                         placeholder="Obrgatório"/>
-
-                            <p:outputLabel value="Data de publicação" for="txtDataPublicacao"/>
-                            <p:calendar id="txtDataPublicacao" value="#{controleLivro.objeto.dataPuclicacao}"
-                                        mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
-                                <f:converter converterId="converterCalendar"/>
-                            </p:calendar> 
-                            
-                             <p:outputLabel value="Data de cadastro" for="txtDataCadastro"/>
-                            <p:calendar id="txtDataCadastro" value="#{controleLivro.objeto.dataCadastro}"
-                                        mask="true" pattern="dd/MM/yyyy" navigator="true" size="10">
-                                <f:converter converterId="converterCalendar"/>
-                            </p:calendar> 
-
-                            <p:outputLabel value="Idioma" for="selectIdioma"/>
-                            <p:selectOneMenu value="#{controleLivro.objeto.idioma}"
-                                             id="selectIdioma"
-                                             filter="true" filterMatchMode="startsWith">
-                                <f:converter binding="#{converterIdioma}"/>
-                                <f:selectItem itemLabel="Selecione um registro"
-                                              noSelectionOption="true"/>
-                                <f:selectItems value="#{controleLivro.daoIdioma.listaTodos}"
-                                               var="idio" itemLabel="#{idio.nome}"/>
-                            </p:selectOneMenu>
-
-                            <p:outputLabel value="Formato" for="selectFormato"/>
-                            <p:selectOneMenu value="#{controleLivro.objeto.formato}"
-                                             id="selectFormato"
-                                             filter="true" filterMatchMode="startsWith">
-                                <f:converter binding="#{converterFormato}"/>
-                                <f:selectItem itemLabel="Selecione um registro"
-                                              noSelectionOption="true"/>
-                                <f:selectItems value="#{controleLivro.daoFormato.listaTodos}"
-                                               var="form" itemLabel="#{form.nome}"/>
-                            </p:selectOneMenu>
-
-                        </p:panelGrid>
-                    </div>
-                    <p:panel>
-                        <div alig="center">
-                            <p:commandButton value="Salvar" icon="pi pi-save"
-                                             actionListener="#{controleLivro.salvar()}"
-                                             update="formEdicao formListagem"
-                                             oncomplete="if(!args.validationFailed){PF('dlg').hide();}"/>
-
-                        </div>
-                    </p:panel>
-
-                </h:form>
-
-            </p:dialog>
+            <ui:include src="formulario.xhtml"/> 
         </ui:define>
     </ui:composition>
 </html>

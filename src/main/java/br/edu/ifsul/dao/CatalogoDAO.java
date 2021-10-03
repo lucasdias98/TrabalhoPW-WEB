@@ -8,11 +8,13 @@ package br.edu.ifsul.dao;
 import br.edu.ifsul.converters.ConverterOrdem;
 import br.edu.ifsul.modelo.Catalogo;
 import java.io.Serializable;
+import javax.ejb.Stateful;
 
 /**
  *
  * @author Lucas
  */
+@Stateful
 public class CatalogoDAO<TIPO> extends DAOGenerico<Catalogo> implements Serializable {
     
     public CatalogoDAO(){

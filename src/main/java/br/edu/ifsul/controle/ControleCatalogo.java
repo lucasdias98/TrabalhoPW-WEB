@@ -3,9 +3,11 @@ package br.edu.ifsul.controle;
 import br.edu.ifsul.dao.CatalogoDAO;
 import br.edu.ifsul.dao.FormatoDAO;
 import br.edu.ifsul.dao.IdiomaDAO;
+import br.edu.ifsul.dao.LivrariaDAO;
 import br.edu.ifsul.modelo.Catalogo;
 import br.edu.ifsul.modelo.Formato;
 import br.edu.ifsul.modelo.Idioma;
+import br.edu.ifsul.modelo.Livraria;
 import br.edu.ifsul.modelo.Livro;
 import br.edu.ifsul.util.Util;
 import java.io.Serializable;
@@ -17,7 +19,7 @@ import javax.inject.Named;
  *
  * @author Lucas
  */
-@Named(value = "controleLivro")
+@Named(value = "controleCatalogo")
 @ViewScoped
 public class ControleCatalogo implements Serializable{
     
@@ -30,6 +32,10 @@ public class ControleCatalogo implements Serializable{
     protected IdiomaDAO<Idioma> daoIdioma;
     @EJB
     protected FormatoDAO<Formato> daoFormato;
+    @EJB
+    protected CatalogoDAO<Catalogo> daoCatalogo;
+    @EJB
+    protected LivrariaDAO<Livraria> daoLivraria;
 
     public ControleCatalogo(){
         
@@ -142,6 +148,22 @@ public class ControleCatalogo implements Serializable{
 
     public void setDaoFormato(FormatoDAO<Formato> daoFormato) {
         this.daoFormato = daoFormato;
+    }
+
+    public CatalogoDAO<Catalogo> getDaoCatalogo() {
+        return daoCatalogo;
+    }
+
+    public void setDaoCatalogo(CatalogoDAO<Catalogo> daoCatalogo) {
+        this.daoCatalogo = daoCatalogo;
+    }
+
+    public LivrariaDAO<Livraria> getDaoLivraria() {
+        return daoLivraria;
+    }
+
+    public void setDaoLivraria(LivrariaDAO<Livraria> daoLivraria) {
+        this.daoLivraria = daoLivraria;
     }
     
 }

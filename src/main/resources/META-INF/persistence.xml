@@ -9,6 +9,8 @@
         <class>br.edu.ifsul.modelo.Livraria</class>
         <class>br.edu.ifsul.modelo.Livro</class>
         <class>br.edu.ifsul.modelo.LivroBasico</class>
+        <class>br.edu.ifsul.modelo.Usuario</class>
+        <class>br.edu.ifsul.modelo.Permissao</class>
         <properties>
             <property name="hibernate.hbm2ddl.auto" value="update"/>
             <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
