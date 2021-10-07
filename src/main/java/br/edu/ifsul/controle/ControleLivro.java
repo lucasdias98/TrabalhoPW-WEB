@@ -11,7 +11,9 @@ import br.edu.ifsul.modelo.Formato;
 import br.edu.ifsul.modelo.Idioma;
 import br.edu.ifsul.modelo.Livro;
 import br.edu.ifsul.util.Util;
+import br.edu.ifsul.util.UtilRelatorios;
 import java.io.Serializable;
+import java.util.HashMap;
 import javax.ejb.EJB;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
@@ -39,6 +41,11 @@ public class ControleLivro implements Serializable{
     
     public ControleLivro(){
         
+    }
+    
+    public void imprimeLivros(){
+        HashMap parametros = new HashMap(); 
+        UtilRelatorios.imprimeRelatorio("relatorioLivros", parametros, dao.getListaTodos());
     }
     
     public void removerAutor(Autor obj) {

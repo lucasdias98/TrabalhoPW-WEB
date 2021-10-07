@@ -17,7 +17,12 @@
                                  update="formEdicao"
                                  process="@this"
                                  oncomplete="PF('dlg').show();"/>
-
+                <p:commandButton value="Imprimir"
+                                 action="#{controleLivro.imprimeLivros()}"
+                                 icon="pi pi-print"
+                                 ajax="false"
+                                 onclick="this.form.target = '_blank';"/>
+                                 
                 <p:dataTable value="#{controleLivro.dao.listaObjetos}" var="obj"
                              id="listagem">
                     <p:column headerText="ISBN">

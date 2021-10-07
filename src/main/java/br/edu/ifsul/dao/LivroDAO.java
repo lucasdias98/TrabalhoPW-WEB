@@ -24,4 +24,14 @@ public class LivroDAO<TIPO> extends DAOGenerico<Livro> implements Serializable {
         //associando a lista de ordens ao conversor
         converterOrdem.setListaOrdem(listaOrdem);
     }
+    
+    @Override
+    public Livro localizar(Object id) throws Exception {
+        Livro objeto = em.find(Livro.class, id);
+        // Deve-se inicializar a coleção ou coleçoes do objeto para não
+        // dar um erro de lazy inicialization exception
+        objeto.getAutores().size();        
+        return objeto;
+    }
+    
 }
